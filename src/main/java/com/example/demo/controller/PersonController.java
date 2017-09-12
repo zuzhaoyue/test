@@ -1,12 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.PersonRepository;
-import com.example.demo.service.PersonService;
 import com.example.demo.model.Person;
+import com.example.demo.service.PersonService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -14,6 +17,7 @@ import java.util.List;
  */
 @RestController
 public class PersonController {
+    private final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     @Autowired
     private PersonRepository personRepository;
@@ -48,10 +52,16 @@ public class PersonController {
         return personRepository.findByAge(age);
     }*/
     @PostMapping("/person")
-    public Person insertPerson(@Param("name")String name,@Param("age")String age){
-        Person person = new Person();
-        person.setAge(age);
-        person.setName(name);
+    public Person insertPerson(@Valid Person person, BindingResult bindingResult){
+        System.out.println("insert person");
+        if(bindingResult.hasErrors()){
+//            System.out.println(bindingResult.getFieldError().getDefaultMessage());
+            logger.info(bindingResult.getFieldError().getDefaultMessage());
+            return null;
+        }
+//        Person person = new Person();
+//        person.setAge(age);
+//        person.setName(name);
         return personRepository.save(person);
     }
     @PostMapping("/person/insert")
