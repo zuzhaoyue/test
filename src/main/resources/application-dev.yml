@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  context-path: /zzy
+
+name: 大美女
+
+age: 20
+
+content: "虎虎侠 ${name},今年 ${age} 啦"
+
+beauty:
+  name: 大美女
+  age: 17
