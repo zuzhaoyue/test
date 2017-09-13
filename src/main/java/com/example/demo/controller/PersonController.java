@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.PersonRepository;
 import com.example.demo.model.Person;
+import com.example.demo.model.Result;
 import com.example.demo.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,8 @@ public class PersonController {
         return "hello" + id;
     }
     @GetMapping("/person/{id}")
-    public Person getPersonByList(@PathVariable("id")Integer id){
-        return personRepository.findOne(id);
+    public Result getPersonByList(@PathVariable("id")Integer id) throws Exception {
+        return personService.getPerson(id);
     }
 
     /*@GetMapping("/person/age/{age}")
