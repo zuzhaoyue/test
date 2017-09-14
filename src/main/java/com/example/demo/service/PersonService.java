@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonRepository;
+import com.example.demo.enums.ResultEnum;
 import com.example.demo.exception.PersonException;
 import com.example.demo.model.Person;
 import com.example.demo.model.Result;
@@ -32,9 +33,9 @@ public class PersonService {
     public Result getPerson(Integer id) throws Exception {
         Person person =  personRepository.findOne(id);
         if( Integer.parseInt(person.getAge() )< 6){
-            throw new PersonException(101,"你还太小");
+            throw new PersonException(ResultEnum.TOO_LITTLE);
         }else if(Integer.parseInt(person.getAge() )> 76) {
-            throw new PersonException(102,"你年经太大了");
+            throw new PersonException(ResultEnum.TOO_OLD);
         }else{
             return ResultUtil.success(person);
         }

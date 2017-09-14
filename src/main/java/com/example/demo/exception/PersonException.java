@@ -1,5 +1,7 @@
 package com.example.demo.exception;
 
+import com.example.demo.enums.ResultEnum;
+
 /**
  * Created by zuzhaoyue on 17/9/13.
  */
@@ -15,6 +17,10 @@ public class PersonException extends RuntimeException {
         this.code = code;
     }
 
+    public PersonException(ResultEnum resultEnum) {
+        super(resultEnum.getMsg());
+        this.code = resultEnum.getCode();
+    }
     public Integer getCode() {
         return code;
     }
