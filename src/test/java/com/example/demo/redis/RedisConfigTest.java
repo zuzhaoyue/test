@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -24,13 +23,12 @@ import java.util.concurrent.TimeUnit;
 */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
 public class RedisConfigTest {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate ;
 
     @Test
     public void test() throws Exception {
@@ -43,7 +41,7 @@ public class RedisConfigTest {
         String user = "zhaoyue.zu";
         ValueOperations<String, String> operations=redisTemplate.opsForValue();
         operations.set("com.neox", user);
-        operations.set("com.neo.f", user,1, TimeUnit.SECONDS);
+        operations.set("com.neo.f", user,10, TimeUnit.SECONDS);//设置存在时间为10秒
         Thread.sleep(1000);
         //redisTemplate.delete("com.neo.f");
         boolean exists=redisTemplate.hasKey("com.neo.f");
