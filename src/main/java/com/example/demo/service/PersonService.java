@@ -21,14 +21,40 @@ public class PersonService {
     @Transactional
     public Person insertTwoPerson(){
         Person person = new Person();
-        person.setAge("12");
-        person.setName("m");
+        person.setAge("222");
+        person.setName("222");
         personRepository.save(person);
         Person person1 = new Person();
-        person1.setAge("16");
-        person1.setName("mmjjjl");
+        person1.setAge("222");
+        person1.setName("222222222");
         return personRepository.save(person1);
 
+    }
+    @Transactional
+    public Person insertOnePerson(){
+        Person person = new Person();
+        person.setAge("111");
+        person.setName("111");
+        return personRepository.save(person);
+    }
+    //没有事务处理,数据会出错
+    public void insert(){
+        insertOnePerson();
+        insertTwoPerson();
+    }
+    @Transactional
+    public void insertT(){
+        insertOnePerson();
+        insertTwoPerson();
+    }
+    @Transactional
+    public void insertTC(){
+        try {
+            insertOnePerson();
+            insertTwoPerson();
+        }catch (Exception e){
+            throw e;
+        }
     }
     public Result getPerson(Integer id) throws Exception {
         Person person =  personRepository.findOne(id);
